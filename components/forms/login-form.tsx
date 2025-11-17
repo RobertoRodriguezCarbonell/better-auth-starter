@@ -20,7 +20,7 @@ import {
   FieldSeparator,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { signUp } from "@/server/users"
+import { signIn, signUp } from "@/server/users"
 
 import {
   Form,
@@ -39,12 +39,11 @@ import { authClient } from "@/lib/auth-client"
 import Link from "next/link"
 
 const formSchema = z.object({
-    username: z.string().min(2).max(20),
-    email: z.string().email(),
-    password: z.string().min(8),
+  email: z.string().email(),
+  password: z.string().min(8),
 })
 
-export function SignupForm({
+export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
@@ -71,7 +70,7 @@ export function SignupForm({
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
 
-    const { success, message } = await signUp(values.email, values.password, values.username);
+    const { success, message } = await signIn(values.email, values.password);
 
     if (success) {
       toast.success(message as string)
@@ -86,9 +85,9 @@ export function SignupForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Welcome</CardTitle>
+          <CardTitle className="text-xl">Welcome back</CardTitle>
           <CardDescription>
-            Signup with your Google account
+            Login with your Google account
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -107,7 +106,7 @@ export function SignupForm({
                         fill="currentColor"
                       />
                     </svg>
-                    Signup with Google
+                    Login with Google
                   </Button>
                 </Field>
                 <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
@@ -115,26 +114,12 @@ export function SignupForm({
                 </FieldSeparator>
                 <FormField
                   control={form.control}
-                  name="username"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Username</FormLabel>
-                      <FormControl>
-                        <Input {...field} value={field.value ?? ""} />
-                        {/* <Input placeholder="username" {...field} /> */}
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
                   name="email"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input type="email" placeholder="m@example.com" {...field} />
+                        <Input placeholder="m@example.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -153,6 +138,12 @@ export function SignupForm({
                     </FormItem>
                   )}
                 />
+                <Link
+                  href="/forgot-password"
+                  className="ml-auto text-sm underline-offset-4 hover:underline"
+                >
+                  Forgot your password?
+                </Link>
                 <Field>
                   <Button
                     type="submit"
@@ -161,12 +152,12 @@ export function SignupForm({
                     {isLoading ? (
                       <Loader2 className="size-4 animate-spin" />
                     ) : (
-                      "Sign Up"
+                      "Login"
                     )}
                   </Button>
                   <FieldDescription className="text-center">
-                    Do you already have an account? {" "} 
-                    <Link href="/login">Log in</Link>
+                    Don&apos;t have an account? {" "} 
+                    <Link href="/signup">Sign up</Link>
                   </FieldDescription>
                 </Field>
               </FieldGroup>

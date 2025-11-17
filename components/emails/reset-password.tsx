@@ -12,12 +12,13 @@ import {
 } from '@react-email/components';
 
 interface ForgotPasswordEmailProps {
-  userEmail: string;
+  username: string;
   resetUrl: string;
+  userEmail: string;
 }
 
 const ForgotPasswordEmail = (props: ForgotPasswordEmailProps) => {
-  const { userEmail, resetUrl } = props;
+  const { username, resetUrl, userEmail } = props;
 
   return (
     <Html lang="en" dir="ltr">
@@ -33,9 +34,9 @@ const ForgotPasswordEmail = (props: ForgotPasswordEmailProps) => {
             </Section>
 
             {/* Main Content */}
-            <Section className="mb-[32px]">
+            <Section className="mb-[32px] px-[32px]">
               <Text className="text-[16px] text-gray-700 leading-[24px] mb-[16px]">
-                Hi there,
+                Hi {username},
               </Text>
               <Text className="text-[16px] text-gray-700 leading-[24px] mb-[16px]">
                 We received a request to reset the password for your account associated with <strong>{userEmail}</strong>.
@@ -46,7 +47,7 @@ const ForgotPasswordEmail = (props: ForgotPasswordEmailProps) => {
             </Section>
 
             {/* Reset Button */}
-            <Section className="text-center mb-[32px]">
+            <Section className="text-center mb-[32px] px-[32px]">
               <Button
                 href={resetUrl}
                 className="bg-blue-600 text-white px-[32px] py-[16px] rounded-[8px] text-[16px] font-semibold no-underline box-border inline-block"
@@ -56,7 +57,7 @@ const ForgotPasswordEmail = (props: ForgotPasswordEmailProps) => {
             </Section>
 
             {/* Alternative Link */}
-            <Section className="mb-[32px]">
+            <Section className="mb-[32px] px-[32px]">
               <Text className="text-[14px] text-gray-600 leading-[20px] mb-[8px]">
                 If the button doesn't work, you can copy and paste this link into your browser:
               </Text>
@@ -68,7 +69,7 @@ const ForgotPasswordEmail = (props: ForgotPasswordEmailProps) => {
             <Hr className="border-gray-200 my-[24px]" />
 
             {/* Security Notice */}
-            <Section className="mb-[24px]">
+            <Section className="mb-[24px] px-[32px]">
               <Text className="text-[14px] text-gray-600 leading-[20px] mb-[8px]">
                 <strong>Security Notice:</strong>
               </Text>
@@ -86,9 +87,9 @@ const ForgotPasswordEmail = (props: ForgotPasswordEmailProps) => {
             <Hr className="border-gray-200 my-[24px]" />
 
             {/* Footer */}
-            <Section>
+            <Section className="px-[32px]">
               <Text className="text-[12px] text-gray-500 leading-[16px] m-0">
-                This email was sent to {userEmail}. If you have any questions, please contact our support team.
+                This email was sent to {username}. If you have any questions, please contact our support team.
               </Text>
               <Text className="text-[12px] text-gray-500 leading-[16px] mt-[8px] m-0">
                 © {new Date().getFullYear()} Your Company Name. All rights reserved.
