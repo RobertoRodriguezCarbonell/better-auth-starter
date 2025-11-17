@@ -36,6 +36,7 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { Loader2 } from "lucide-react"
 import { authClient } from "@/lib/auth-client"
+import Link from "next/link"
 
 const formSchema = z.object({
     username: z.string().min(2).max(20),
@@ -85,9 +86,9 @@ export function SignupForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Welcome back</CardTitle>
+          <CardTitle className="text-xl">Welcome</CardTitle>
           <CardDescription>
-            Login with your Google account
+            Signup with your Google account
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -106,7 +107,7 @@ export function SignupForm({
                         fill="currentColor"
                       />
                     </svg>
-                    Login with Google
+                    Signup with Google
                   </Button>
                 </Field>
                 <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
@@ -164,7 +165,8 @@ export function SignupForm({
                     )}
                   </Button>
                   <FieldDescription className="text-center">
-                    Don&apos;t have an account? <a href="#">Sign up</a>
+                    Do you already have an account? {" "} 
+                    <Link href="/login">Log in</Link>
                   </FieldDescription>
                 </Field>
               </FieldGroup>
