@@ -2,7 +2,7 @@
 
 import { authClient } from "@/lib/auth-client"
 import { Button } from "./ui/button";
-import { LogOut } from "lucide-react";
+import { LogOut, LogOutIcon } from "lucide-react";
 
 export function Logout() {
     const handleLogout = async () => {
@@ -11,8 +11,9 @@ export function Logout() {
     }
 
     return (
-        <Button variant="destructive" onClick={handleLogout}>
-            Logout <LogOut className="size-4" />
-        </Button>
+        <div className="w-full" onClick={handleLogout}>
+            <LogOutIcon className="inline mr-2 h-4 w-4" />
+            Logout
+        </div>
     )
 }
