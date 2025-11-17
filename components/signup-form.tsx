@@ -161,7 +161,7 @@ export function SignupForm({
                     {isLoading ? (
                       <Loader2 className="size-4 animate-spin" />
                     ) : (
-                      "Login"
+                      "Sign Up"
                     )}
                   </Button>
                   <FieldDescription className="text-center">
