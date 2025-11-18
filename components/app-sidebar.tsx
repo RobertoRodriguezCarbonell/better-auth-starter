@@ -42,7 +42,7 @@ const data = {
             isActive: true,
             items: [
                 {
-                    title: "Dashboard",
+                    title: "Active Projects",
                     url: "/dashboard",
                     icon: SquareTerminal,
                     isActive: true,
