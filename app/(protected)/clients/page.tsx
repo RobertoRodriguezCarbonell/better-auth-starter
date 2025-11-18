@@ -1,5 +1,6 @@
 "use client"
 
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -156,17 +157,17 @@ export default function ClientsPage() {
                 <li key={c.id} className="p-3 border hover:bg-muted/50">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                      <p className={`text-sm px-2 ${c.active
-                          ? 'text-green-600 bg-green-100 dark:text-green-400 dark:bg-green-950'
-                          : 'text-accent bg-muted-foreground'
-                        }`}>
+                      <Badge variant={c.active ? "default" : "destructive"}>
                         {c.client_key}
-                      </p>
+                      </Badge>
                       <p className="font-medium">{c.client_name}</p>
                     </div>
-                    <p className="text-xs text-muted-foreground">
-                      {new Date(c.created_at).toLocaleDateString()}
-                    </p>
+                    <div className="flex items-center gap-x-8">
+                      <p className="text-xs text-muted-foreground">
+                        {new Date(c.created_at).toLocaleDateString()}
+                      </p>
+                      <a className="underline text-blue-400 hover:text-blue-600 transition-colors duration-500" href="#">Details</a>
+                    </div>
                   </div>
                 </li>
               ))}
