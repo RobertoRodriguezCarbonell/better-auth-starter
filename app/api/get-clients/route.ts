@@ -18,6 +18,9 @@ export async function POST(request: Request) {
     // Obtener la fecha y hora actual en formato ISO para la columna created_at de la tabla "clients"
     const timestampzNow = new Date().toISOString();
 
+    // Marcar cliente como active = TRUE al crearlo
+    const isActive = true;
+
     // Recibir los datos del cliente desde el cuerpo de la solicitud
     const { client_name, client_key } = await request.json();
 
@@ -31,8 +34,8 @@ export async function POST(request: Request) {
 
     // Hacer el insert en la tabla
     const result = await sql`
-        INSERT INTO clients (client_name, client_key, created_at)
-        VALUES (${client_name}, ${client_key}, ${timestampzNow})
+        INSERT INTO clients (client_name, client_key, created_at, active)
+        VALUES (${client_name}, ${client_key}, ${timestampzNow}, ${isActive})
         RETURNING *;
     `;
 

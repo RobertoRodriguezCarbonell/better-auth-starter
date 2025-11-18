@@ -21,6 +21,7 @@ interface Client {
   client_name: string
   client_key: string
   created_at: string
+  active: boolean
 }
 
 export default function ClientsPage() {
@@ -38,6 +39,7 @@ export default function ClientsPage() {
         const res = await fetch('/api/get-clients')
         const data = await res.json()
         setClients(data)
+        // console.log("Fetched clients:", data)
       } catch (error) {
         console.error('Error fetching clients:', error)
         toast.error("Failed to load clients")
@@ -154,7 +156,12 @@ export default function ClientsPage() {
                 <li key={c.id} className="p-3 border hover:bg-muted/50">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                      <p className="text-sm text-accent bg-muted-foreground px-2">{c.client_key}</p>
+                      <p className={`text-sm px-2 ${c.active
+                          ? 'text-green-600 bg-green-100 dark:text-green-400 dark:bg-green-950'
+                          : 'text-accent bg-muted-foreground'
+                        }`}>
+                        {c.client_key}
+                      </p>
                       <p className="font-medium">{c.client_name}</p>
                     </div>
                     <p className="text-xs text-muted-foreground">
