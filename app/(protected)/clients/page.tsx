@@ -166,7 +166,7 @@ export default function ClientsPage() {
                       <p className="text-xs text-muted-foreground">
                         {new Date(c.created_at).toLocaleDateString()}
                       </p>
-                      <a className="underline text-blue-400 hover:text-blue-600 transition-colors duration-500" href="#">Details</a>
+                      <a className="underline text-blue-400 hover:text-blue-600 transition-colors duration-500" href={`/clients/${c.id}`}>Details</a>
                     </div>
                   </div>
                 </li>
