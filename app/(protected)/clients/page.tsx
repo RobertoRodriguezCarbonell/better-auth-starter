@@ -1,14 +1,51 @@
+"use client"
+
+import { useEffect, useState } from "react"
+
+interface Client {
+  id: string | number
+  client_name: string
+  client_key: string
+  created_at: string
+}
+
 export default function ClientsPage() {
-    return (
+  const [clients, setClients] = useState<Client[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function loadClients() {
+      try {
+        const res = await fetch('/api/get-clients')
+        const data = await res.json()
+        setClients(data)
+      } catch (error) {
+        console.error('Error fetching clients:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadClients();
+  }, [])
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
+
+  return (
     <>
-      <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-        <div className="bg-muted/50 aspect-video rounded-xl flex items-center justify-center">
-          <h2 className="text-lg font-semibold">Clients Page</h2>
+      <div>
+        <div>
+          <ul>
+            {clients.map((c) => (
+              <li key={c.id}>
+                {c.client_key} | {c.client_name} | {new Date(c.created_at).toLocaleString()}
+              </li>
+            ))}
+          </ul>
         </div>
-        <div className="bg-muted/50 aspect-video rounded-xl" />
-        <div className="bg-muted/50 aspect-video rounded-xl" />
       </div>
-      <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" />
     </>
   )
 }
